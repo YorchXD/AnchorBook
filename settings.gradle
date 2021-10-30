@@ -1,0 +1,2 @@
+rootProject.name = "Anchor Books"
+include ':app'
