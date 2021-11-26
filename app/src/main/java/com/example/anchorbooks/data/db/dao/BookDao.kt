@@ -13,7 +13,7 @@ interface BookDao {
     suspend fun getAll(): List<BookEntity>
 
     @Query("SELECT * FROM book_entity WHERE book_entity.id =:id")
-    suspend fun getBoks(@NotNull id: Int): BookEntity
+    suspend fun getBook(@NotNull id: Int): BookEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBooks(@NotNull books:List<BookEntity>)

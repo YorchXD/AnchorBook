@@ -24,10 +24,7 @@ class BookRepository {
                 //Log.d("Libros", it.body().toString())
                 if(it.body()!=null)
                 {
-                    if(it.body()!=null)
-                    {
-                        db.bookDAO().insertBooks(BookConverter.converterBooksEntity(it.body()!!))
-                    }
+                    db.bookDAO().insertBooks(BookConverter.converterBooksEntity(it.body()!!))
                 }
             }
 
@@ -40,6 +37,36 @@ class BookRepository {
             if(booksEntity!=null)
             {
                 emit(BookConverter.converterBooks(booksEntity))
+            }
+
+            delay(5000)
+        }
+
+    }.flowOn(Dispatchers.IO)
+
+
+    fun getBook(id:Int): Flow<Book> = flow {
+        while(true)
+        {
+            val bookResponse = kotlin.runCatching { bookService.getBook(id) }
+
+            bookResponse.onSuccess {
+                Log.d("Libro", it.body().toString())
+                if(it.body()!=null)
+                {
+                    db.bookDAO().insertBook(BookConverter.converterBookEntity(it.body()!!))
+                }
+            }
+
+            bookResponse.onFailure {
+                Log.d("ErrorLibro", it.toString())
+            }
+
+            val bookEntity: BookEntity = db.bookDAO().getBook(id)
+
+            if(bookEntity!=null)
+            {
+                emit(BookConverter.converterBook(bookEntity))
             }
 
             delay(5000)

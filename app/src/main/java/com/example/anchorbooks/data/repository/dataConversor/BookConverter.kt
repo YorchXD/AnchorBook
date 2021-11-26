@@ -22,5 +22,15 @@ class BookConverter {
             }
             return books
         }
+
+        fun converterBookEntity(book: Book): BookEntity
+        {
+            return BookEntity(book.id!!,book.author!!,book.country!!,book.imageLink!!,book.language!!, book.link!!, book.pages!!, book.title!!, book.year!!, book.price!!, book.lastPrice!!, book.delivery!!)
+        }
+
+        fun converterBook(bookEntity: BookEntity): Book
+        {
+            return Book(bookEntity.id,bookEntity.author,bookEntity.country,bookEntity.imageLink,bookEntity.language, bookEntity.link, bookEntity.pages, bookEntity.title, bookEntity.year, bookEntity.price, bookEntity.lastPrice, bookEntity.delivery)
+        }
     }
 }

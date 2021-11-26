@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.anchorbooks.R
+import com.example.anchorbooks.data.db.config.AnchorBooksApp.Companion.prefs
 import com.example.anchorbooks.databinding.FragmentBooksBinding
 import com.example.anchorbooks.ui.view.adapters.BookAdapter
 import com.example.anchorbooks.ui.view.interfaces.IComunicateBook
@@ -35,7 +36,7 @@ class BooksFragment : Fragment() {
     private var param2: String? = null
 
     lateinit var activity: Activity
-    lateinit var viewAux:View
+    //lateinit var viewAux:View
     lateinit var iComunicateBook: IComunicateBook
     private lateinit var bookViewModel: BookViewModel
 
@@ -68,7 +69,8 @@ class BooksFragment : Fragment() {
             adapter.setOnClickListener(object : View.OnClickListener{
                 override fun onClick(v: View?) {
                     var idBook: Int = it.get(binding.recyclerBooks.getChildAdapterPosition(v!!)).id
-                    iComunicateBook.viewDetailBook(idBook)
+                    prefs.idBook = idBook
+                    iComunicateBook.viewDetailBook()
                 }
             })
         })

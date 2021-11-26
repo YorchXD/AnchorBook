@@ -15,4 +15,10 @@ class BookService {
             retrofit.create(InterfaceService::class.java).getAll()
         }
     }
+
+    suspend fun getBook(id:Int):Response<Book>{
+        return withContext(Dispatchers.IO){
+            retrofit.create(InterfaceService::class.java).getDetail(id)
+        }
+    }
 }
